@@ -1,6 +1,9 @@
 import { App } from './App'
+import * as dotenv from 'dotenv'
 
-const PORT = 8080
+dotenv.config()
+
+const PORT = process.env.SERVER_PORT
 
 ;(async function start() {
   App.listen(PORT, () => console.log(`Server is running at ${PORT}`))
