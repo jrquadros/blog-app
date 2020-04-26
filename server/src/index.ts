@@ -1,7 +1,10 @@
-'use strict'
+import { App } from './App'
+import * as dotenv from 'dotenv'
 
-module.exports = server
+dotenv.config()
 
-function server() {
-  // TODO
-}
+const PORT = process.env.SERVER_PORT
+
+;(async function start() {
+  App.listen(PORT, () => console.log(`Server is running at ${PORT}`))
+})()
