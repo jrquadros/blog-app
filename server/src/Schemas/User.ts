@@ -1,4 +1,4 @@
-import { Schema, Document, model, Types, Model } from 'mongoose'
+import { Schema, Document, model } from 'mongoose'
 import { ITodoSchema } from './Todo'
 
 const UserSchema = new Schema({
@@ -9,6 +9,7 @@ const UserSchema = new Schema({
   },
   email: {
     type: String,
+    unique: true,
     required: true,
   },
   password: {
@@ -19,6 +20,7 @@ const UserSchema = new Schema({
   todos: [
     {
       type: String,
+      required: false,
     },
   ],
   createdAt: {
@@ -28,6 +30,7 @@ const UserSchema = new Schema({
 })
 
 export interface IUserSchema extends Document {
+  id: string
   username: string
   email: string
   password: string

@@ -1,4 +1,4 @@
-import { Schema, Document, Model, model, Types } from 'mongoose'
+import { Schema, Document, model } from 'mongoose'
 import { IUserSchema } from './User'
 
 const TodoSchema = new Schema({
