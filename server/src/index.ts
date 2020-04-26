@@ -1,7 +1,7 @@
-'use strict'
+import { App } from './App'
 
-module.exports = server
+const PORT = 8080
 
-function server() {
-  // TODO
-}
+;(async function start() {
+  App.listen(PORT, () => console.log(`Server is running at ${PORT}`))
+})()

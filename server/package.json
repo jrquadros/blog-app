@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongoose": "^5.9.10",
     "typescript": "^3.8.3"
@@ -51,6 +52,7 @@
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
     "@types/cors": "^2.8.6",
+    "@types/dotenv": "^8.2.0",
     "@types/express": "^4.17.6",
     "@types/mongoose": "^5.7.13",
     "@types/nodemon": "^1.19.0",
