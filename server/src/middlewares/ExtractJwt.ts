@@ -1,23 +1,23 @@
 import * as jwt from 'jsonwebtoken'
-import { Request } from 'express'
-// @ts-ignore
-const promisify = require('util')
+import { Request, Response, NextFunction } from 'express'
 
-export const ExtractJWT = async (req: Request, res, next) => {
+export const ExtractJWT = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization
-  console.log(authHeader)
   if (!authHeader) {
     return res.status(401).send({ error: 'No token provided' })
   }
 
-  // @ts-ignore
   const [scheme, token] = authHeader.split(' ')
 
-  try {
-    const decoded = await promisify(jwt.verify)(token, 'secret')
+  if (!/^Bearer$/i.test(scheme)) {
+    return res.status(401).send({ error: 'token malformatted' })
+  }
+
+  jwt.verify(token, 'secret', (err, decoded) => {
+    if (err) return res.status(401).send({ error: 'invalid token' })
+
     // @ts-ignore
     req.userId = decoded.id
-  } catch (err) {
-    return res.status(401).send({ error: 'Token invalid' })
-  }
+    return next()
+  })
 }

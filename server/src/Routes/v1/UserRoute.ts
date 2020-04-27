@@ -1,8 +1,10 @@
 import * as express from 'express'
 import { UserController } from '../../Controllers/UserController'
+import { ExtractJWT } from '../../middlewares/ExtractJwt'
 
 const router = express.Router()
 
+router.use(ExtractJWT)
 router.route('/').post(UserController.store).get(UserController.index)
 
 router
