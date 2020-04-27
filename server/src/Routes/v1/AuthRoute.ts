@@ -1,11 +1,9 @@
 import * as express from 'express'
 import { AuthController } from '../../Controllers/AuthController'
-//import { ExtractJWT } from '../../middlewares/ExtractJwt'
 
 const router = express.Router()
 
 router.route('/').post(AuthController.authenticate)
-
-//router.use(ExtractJWT)
+router.route('/register').post(AuthController.store)
 
 export const AuthRoute = router

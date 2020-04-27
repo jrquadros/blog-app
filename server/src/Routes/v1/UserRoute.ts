@@ -5,7 +5,7 @@ import { ExtractJWT } from '../../middlewares/ExtractJwt'
 const router = express.Router()
 
 router.use(ExtractJWT)
-router.route('/').post(UserController.store).get(UserController.index)
+router.route('/').get(UserController.index)
 
 router
   .route('/:id')

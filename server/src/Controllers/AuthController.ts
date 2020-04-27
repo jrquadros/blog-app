@@ -6,6 +6,13 @@ interface IUserRequest<T> extends Request {
 }
 
 export const AuthController = {
+  async store(req: IUserRequest<IUserSchema>, res: Response) {
+    const user = await User.create(req.body).catch((error) => {
+      res.send(error)
+    })
+    return res.json(user)
+  },
+
   async authenticate(req: IUserRequest<IUserSchema>, res: Response) {
     try {
       const { email, password } = req.body
