@@ -37,14 +37,6 @@ export const UserController = {
     return res.json(user)
   },
 
-  //TODO: add created at >>>> Date.now()
-  async store(req: IUserRequest<IUserSchema>, res: Response) {
-    const user = await User.create(req.body).catch((error) => {
-      res.send(error)
-    })
-    return res.json(user)
-  },
-
   async destroy(req: Request, res: Response) {
     await User.findByIdAndRemove(req.params.id).catch((error) => {
       res.send(error)

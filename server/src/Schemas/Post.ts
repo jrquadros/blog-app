@@ -15,6 +15,14 @@ const PostSchema = new Schema({
     ref: 'User',
     required: true,
   },
+  content: {
+    type: String,
+    required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 })
 
 export interface IPostSchema extends Document {
