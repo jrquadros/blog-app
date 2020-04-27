@@ -1,6 +1,7 @@
 import { Schema, Document, model } from 'mongoose'
+import * as bcrypt from 'bcrypt'
 
-const UserSchema = new Schema({
+const UserSchema = new Schema<IUserSchema>({
   username: {
     type: String,
     required: true,
@@ -36,5 +37,11 @@ export interface IUserSchema extends Document {
   password: string
   posts?: Schema.Types.ObjectId[]
 }
+
+UserSchema.pre<IUserSchema>('save', async function (next) {
+  const hash = await bcrypt.hash(this.password, 10)
+  this.password = hash
+  next()
+})
 
 export const User = model<IUserSchema>('User', UserSchema)
