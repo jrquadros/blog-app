@@ -1,5 +1,6 @@
 import { Schema, Document, model } from 'mongoose'
 import * as bcrypt from 'bcrypt'
+import * as jwt from 'jsonwebtoken'
 
 const UserSchema = new Schema<IUserSchema>({
   username: {
@@ -31,12 +32,13 @@ const UserSchema = new Schema<IUserSchema>({
   },
 })
 
-export interface IUserSchema extends Document {
-  id: string
-  username: string
-  email: string
-  password: string
-  posts?: Schema.Types.ObjectId[]
+UserSchema.methods.generateToken = function () {
+  // TODO: get secret from env
+  return jwt.sign(this.password, 'secret', { expiresIn: 86400 })
+}
+
+UserSchema.methods.compareHash = function (hash) {
+  return bcrypt.compare(hash, this.password)
 }
 
 UserSchema.pre<IUserSchema>('save', async function (next) {
@@ -44,5 +46,15 @@ UserSchema.pre<IUserSchema>('save', async function (next) {
   this.password = hash
   next()
 })
+
+export interface IUserSchema extends Document {
+  id: string
+  username: string
+  email: string
+  password: string
+  posts?: Schema.Types.ObjectId[]
+  generateToken(): string | undefined
+  compareHash(hash: string): Promise<boolean>
+}
 
 export const User = model<IUserSchema>('User', UserSchema)
