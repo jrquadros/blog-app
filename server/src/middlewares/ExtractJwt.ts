@@ -1,5 +1,6 @@
 import * as jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
+import { Config } from '../config/Config'
 
 export const ExtractJWT = async (req: Request, res: Response, next: NextFunction) => {
   const authHeader = req.headers.authorization
@@ -13,7 +14,7 @@ export const ExtractJWT = async (req: Request, res: Response, next: NextFunction
     return res.status(401).send({ error: 'token malformatted' })
   }
 
-  jwt.verify(token, 'secret', (err, decoded) => {
+  jwt.verify(token, Config.jwt.secret || '', (err, decoded) => {
     if (err) return res.status(401).send({ error: 'invalid token' })
 
     // @ts-ignore
