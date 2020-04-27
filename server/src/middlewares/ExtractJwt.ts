@@ -1,31 +1,23 @@
 import * as jwt from 'jsonwebtoken'
-import { User } from '../Schemas/User'
-import { Request, Response, NextFunction, RequestHandler } from 'express'
+import { Request } from 'express'
+// @ts-ignore
+const promisify = require('util')
 
-export const extractJWTMiddleware = (): RequestHandler => {
-  return (req: Request, res: Response, next: NextFunction): void => {
-    const authorization: string = req.get('authorization')
-    const token = authorization ? authorization.split(' ')[1] : undefined
+export const ExtractJWT = async (req: Request, res, next) => {
+  const authHeader = req.headers.authorization
+  console.log(authHeader)
+  if (!authHeader) {
+    return res.status(401).send({ error: 'No token provided' })
+  }
 
-    req['context'] = {}
-    req['context']['authorization'] = authorization
+  // @ts-ignore
+  const [scheme, token] = authHeader.split(' ')
 
-    if (!token) return next()
-
-    // TODO get .env
-    jwt.verify(token, 'secret', (err, decoded: any) => {
-      if (err) return next()
-
-      User.findById(decoded.sub).then((user) => {
-        if (user) {
-          req['context']['authUser'] = {
-            id: user.id,
-            email: user.email,
-          }
-        }
-
-        return next()
-      })
-    })
+  try {
+    const decoded = await promisify(jwt.verify)(token, 'secret')
+    // @ts-ignore
+    req.userId = decoded.id
+  } catch (err) {
+    return res.status(401).send({ error: 'Token invalid' })
   }
 }
