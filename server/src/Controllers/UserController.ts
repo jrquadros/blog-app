@@ -13,6 +13,14 @@ export const UserController = {
     return res.json(users)
   },
 
+  // async postsByUser(req: Request, res: Response) {
+  //   const id = req.params
+
+  //   const user = await User.findById(id).populate('posts')
+
+  //   return res.json(user?.posts)
+  // },
+
   async show(req: IUserRequest<IUserSchema>, res: Response) {
     const user = await User.findById(req.params.id).catch((error) => {
       res.send(error)
@@ -29,6 +37,7 @@ export const UserController = {
     return res.json(user)
   },
 
+  //TODO: add created at >>>> Date.now()
   async store(req: IUserRequest<IUserSchema>, res: Response) {
     const user = await User.create(req.body).catch((error) => {
       res.send(error)
