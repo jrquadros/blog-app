@@ -32,13 +32,19 @@ const UserSchema = new Schema<IUserSchema>({
   },
 })
 
-UserSchema.methods.generateToken = function () {
+UserSchema.methods.generateToken = function (id: string) {
   // TODO: get secret from env
-  return jwt.sign(this.password, 'secret', { expiresIn: 86400 })
+  return jwt.sign({ id }, 'secret', { expiresIn: '1 days' })
 }
 
-UserSchema.methods.compareHash = function (hash) {
-  return bcrypt.compare(hash, this.password)
+UserSchema.methods.compareHash = async function (password, email) {
+  try {
+    const user = await User.findOne({ email: email }).select('+password')
+    return bcrypt.compare(password, user?.password || '')
+  } catch (error) {
+    console.error(error.message)
+    return false
+  }
 }
 
 UserSchema.pre<IUserSchema>('save', async function (next) {
@@ -53,8 +59,8 @@ export interface IUserSchema extends Document {
   email: string
   password: string
   posts?: Schema.Types.ObjectId[]
-  generateToken(): string | undefined
-  compareHash(hash: string): Promise<boolean>
+  generateToken(id: string): string | undefined
+  compareHash(password: string, email: string): Promise<boolean>
 }
 
 export const User = model<IUserSchema>('User', UserSchema)
