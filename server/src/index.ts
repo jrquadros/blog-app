@@ -10,7 +10,9 @@ const PORT = process.env.SERVER_PORT
   mongoose
     .connect('mongodb://localhost:27017/todo', {
       useNewUrlParser: true,
+      useCreateIndex: true,
       useUnifiedTopology: true,
+      useFindAndModify: false,
     })
     .then(() => {
       console.log('database connected')

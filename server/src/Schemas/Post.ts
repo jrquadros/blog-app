@@ -1,17 +1,13 @@
-import { Schema, Document, Model, model, Types } from 'mongoose'
+import { Schema, Document, model } from 'mongoose'
 import { IUserSchema } from './User'
 
-const TodoSchema = new Schema({
+const PostSchema = new Schema({
   title: {
     type: String,
     required: true,
   },
   description: {
     type: String,
-    required: false,
-  },
-  isDone: {
-    type: Boolean,
     required: false,
   },
   author: {
@@ -21,11 +17,11 @@ const TodoSchema = new Schema({
   },
 })
 
-export interface ITodoSchema extends Document {
+export interface IPostSchema extends Document {
   title: string
   description: string
   isDone: boolean
   author: IUserSchema
 }
 
-export const Todo = model<ITodoSchema>('Todo', TodoSchema)
+export const Post = model<IPostSchema>('Post', PostSchema)
