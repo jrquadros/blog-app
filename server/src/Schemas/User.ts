@@ -27,6 +27,7 @@ const UserSchema = new Schema<IUserSchema>({
   createdAt: {
     type: Date,
     required: false,
+    default: Date.now,
   },
 })
 
