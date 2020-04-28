@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "workspaces": [
-    "server"
+    "server",
+    "auth-server"
   ]
 }
