@@ -1,0 +1,12 @@
+{
+  "name": "auth-server",
+  "version": "1.0.0",
+  "description": "go jwt auth server",
+  "main": "index.js",
+  "author": "jrquadros",
+  "license": "MIT",
+  "scripts": {
+    "go:install": "go mod tidy && go build .",
+    "dev": "go run main.go"
+  }
+}
