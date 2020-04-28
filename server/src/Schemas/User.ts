@@ -1,6 +1,17 @@
 import { Schema, Document, model } from 'mongoose'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
+import { Config } from '../config/Config'
+
+export interface IUserSchema extends Document {
+  id: string
+  username: string
+  email: string
+  password: string
+  posts?: Schema.Types.ObjectId[]
+  generateToken(id: string): string | undefined
+  compareHash(password: string, email: string): Promise<boolean>
+}
 
 const UserSchema = new Schema<IUserSchema>({
   username: {
@@ -33,8 +44,7 @@ const UserSchema = new Schema<IUserSchema>({
 })
 
 UserSchema.methods.generateToken = function (id: string) {
-  // TODO: get secret from env
-  return jwt.sign({ id }, 'secret', { expiresIn: '1 days' })
+  return jwt.sign({ id }, Config.jwt.secret || '', { expiresIn: '1 days' })
 }
 
 UserSchema.methods.compareHash = async function (password, email) {
@@ -52,15 +62,5 @@ UserSchema.pre<IUserSchema>('save', async function (next) {
   this.password = hash
   next()
 })
-
-export interface IUserSchema extends Document {
-  id: string
-  username: string
-  email: string
-  password: string
-  posts?: Schema.Types.ObjectId[]
-  generateToken(id: string): string | undefined
-  compareHash(password: string, email: string): Promise<boolean>
-}
 
 export const User = model<IUserSchema>('User', UserSchema)

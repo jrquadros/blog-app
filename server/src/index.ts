@@ -1,4 +1,5 @@
 import { App } from './App'
+import { Config } from './config/Config'
 import * as mongoose from 'mongoose'
 import * as dotenv from 'dotenv'
 
@@ -8,7 +9,7 @@ const PORT = process.env.SERVER_PORT
 
 ;(async function start() {
   mongoose
-    .connect('mongodb://localhost:27017/todo', {
+    .connect(Config.mongoose.url || '', {
       useNewUrlParser: true,
       useCreateIndex: true,
       useUnifiedTopology: true,

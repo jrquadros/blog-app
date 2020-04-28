@@ -7,6 +7,6 @@ const router = express.Router()
 
 router.use('/users', UserRoute)
 router.use('/posts', PostRoute)
-router.use('/login', AuthRoute)
+router.use('/auth', AuthRoute)
 
 export const Router = router

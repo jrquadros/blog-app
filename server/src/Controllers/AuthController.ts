@@ -1,9 +1,6 @@
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { User, IUserSchema } from '../Schemas/User'
-
-interface IUserRequest<T> extends Request {
-  body: T
-}
+import { IUserRequest } from '../middlewares/ExtractJwt'
 
 export const AuthController = {
   async store(req: IUserRequest<IUserSchema>, res: Response) {
@@ -27,13 +24,26 @@ export const AuthController = {
         return res.status(401).send('error: Invalid password')
       }
 
+      const token = user.generateToken(user.id)
+
       return res.json({
         user: user,
-        token: user.generateToken(user.id),
+        token: token,
       })
     } catch (err) {
-      console.log(err)
       return res.status(400).send(err)
+    }
+  },
+
+  async currentUser(req: IUserRequest<IUserSchema>, res: Response) {
+    try {
+      const { userId } = req.cookies
+
+      const user = await User.findById(userId)
+
+      return res.json({ authUser: user })
+    } catch (error) {
+      return res.status(400).json({ error: "Can't get user information" })
     }
   },
 }
