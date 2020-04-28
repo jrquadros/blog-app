@@ -1,9 +1,6 @@
 import { User, IUserSchema } from '../Schemas/User'
 import { Request, Response } from 'express'
-
-interface IUserRequest<T> extends Request {
-  body: T
-}
+import { IUserRequest } from '../middlewares/ExtractJwt'
 
 export const UserController = {
   async index(req: Request, res: Response) {
@@ -29,11 +26,9 @@ export const UserController = {
   },
 
   async update(req: IUserRequest<IUserSchema>, res: Response) {
-    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch(
-      (error) => {
-        res.send(error)
-      }
-    )
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch((error) => {
+      res.send(error)
+    })
     return res.json(user)
   },
 

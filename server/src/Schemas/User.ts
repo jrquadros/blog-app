@@ -3,6 +3,16 @@ import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { Config } from '../config/Config'
 
+export interface IUserSchema extends Document {
+  id: string
+  username: string
+  email: string
+  password: string
+  posts?: Schema.Types.ObjectId[]
+  generateToken(id: string): string | undefined
+  compareHash(password: string, email: string): Promise<boolean>
+}
+
 const UserSchema = new Schema<IUserSchema>({
   username: {
     type: String,
@@ -52,15 +62,5 @@ UserSchema.pre<IUserSchema>('save', async function (next) {
   this.password = hash
   next()
 })
-
-export interface IUserSchema extends Document {
-  id: string
-  username: string
-  email: string
-  password: string
-  posts?: Schema.Types.ObjectId[]
-  generateToken(id: string): string | undefined
-  compareHash(password: string, email: string): Promise<boolean>
-}
 
 export const User = model<IUserSchema>('User', UserSchema)

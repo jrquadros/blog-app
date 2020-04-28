@@ -1,10 +1,7 @@
 import { Post, IPostSchema } from '../Schemas/Post'
 import { User } from '../Schemas/User'
 import { Request, Response } from 'express'
-
-interface IUserRequest<T> extends Request {
-  body: T
-}
+import { IUserRequest } from '../middlewares/ExtractJwt'
 
 export const PostController = {
   async index(req: Request, res: Response) {
@@ -22,11 +19,9 @@ export const PostController = {
   },
 
   async update(req: IUserRequest<IPostSchema>, res: Response) {
-    const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch(
-      (error) => {
-        res.send(error)
-      }
-    )
+    const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch((error) => {
+      res.send(error)
+    })
     return res.json(post)
   },
 
@@ -40,7 +35,7 @@ export const PostController = {
             posts: post.id,
           },
         },
-        { new: true }
+        { new: true },
       )
     })
     return res.send(post)
