@@ -1,23 +1,24 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"net/http"
 
-	"github.com/julienschmidt/httprouter"
+	"github.com/gorilla/mux"
+	"github.com/jrquadros/auth-server/config/enviroment"
+	"github.com/jrquadros/auth-server/controller"
 )
-
-func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	fmt.Fprint(w, "Welcome!\n")
-}
 
 func main() {
 
-	router := httprouter.New()
+	port := enviroment.GetEnviroment("SERVER_PORT")
 
-	router.GET("/hello", index)
+	router := mux.NewRouter()
 
-	log.Fatal(http.ListenAndServe(":8080", router))
+	router.HandleFunc("/login", controller.LoginHandler)
+
+	println("Server running at port ", port)
+
+	log.Fatal(http.ListenAndServe(port, router))
 
 }
