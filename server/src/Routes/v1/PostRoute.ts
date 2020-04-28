@@ -6,13 +6,8 @@ const router = express.Router()
 
 router.use(ExtractJWT)
 
-router.route('/').get(PostController.index)
+router.route('/').get(PostController.index).post(PostController.store)
 
-router
-  .route('/:id')
-  .post(PostController.store)
-  .get(PostController.show)
-  .put(PostController.update)
-  .delete(PostController.destroy)
+router.route('/:id').get(PostController.show).put(PostController.update).delete(PostController.destroy)
 
 export const PostRoute = router

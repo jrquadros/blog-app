@@ -26,8 +26,6 @@ export const AuthController = {
 
       const token = user.generateToken(user.id)
 
-      req.userId = user.id
-
       return res.json({
         user: user,
         token: token,
