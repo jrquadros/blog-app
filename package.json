@@ -4,7 +4,14 @@
   "workspaces": {
     "nohoist": [
       "**/react-native",
-      "**/react-native/**"
+      "**/react-native/**",
+      "**/styled-components/**",
+      "**/styled-components",
+      "**/styled-components/native",
+      "**/styled-components/native/**",
+      "**/@react-navigation",
+      "**/@react-navigation/**",
+      "**/babel-plugin-styled-components/**"
     ],
     "packages": [
       "packages/*"
