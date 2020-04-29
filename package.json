@@ -1,8 +1,14 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": [
-    "server",
-    "auth-server"
-  ]
+  "workspaces": {
+    "nohoist": [
+      "**/react-native",
+      "**/react-native/**"
+    ],
+    "packages": [
+      "packages/*"
+    ]
+  },
+  "dependencies": {}
 }
