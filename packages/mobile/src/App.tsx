@@ -13,7 +13,7 @@ import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'rea
 
 // declare const global: { HermesInternal: null | {} }
 
-const App = () => {
+export const App = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -25,5 +25,3 @@ const App = () => {
     </>
   )
 }
-
-export default App
