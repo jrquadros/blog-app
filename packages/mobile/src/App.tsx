@@ -1,27 +1,16 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-
 import React from 'react'
-import { SafeAreaView, StyleSheet, ScrollView, View, Text, StatusBar } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { View, Text } from 'react-native'
 
-// declare const global: { HermesInternal: null | {} }
+const Stack = createStackNavigator()
 
 export const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <View>
-          <Text>App</Text>
-        </View>
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <View>
+        <Text>lkfjalkdfjlakdjflakdjf</Text>
+      </View>
+    </NavigationContainer>
   )
 }

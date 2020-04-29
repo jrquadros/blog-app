@@ -10,10 +10,15 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-navigation/native": "^5.1.7",
+    "@react-navigation/stack": "^5.2.14",
     "axios": "^0.19.2",
     "react": "16.11.0",
     "react-native": "0.62.2",
-    "react-navigation": "^4.3.8",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-safe-area-context": "^0.7.3",
+    "react-native-screens": "^2.7.0",
     "styled-components": "^5.1.0"
   },
   "devDependencies": {
@@ -23,7 +28,6 @@
     "@types/axios": "^0.14.0",
     "@types/jest": "^24.0.24",
     "@types/react-native": "^0.62.0",
-    "@types/react-navigation": "^3.4.0",
     "@types/react-test-renderer": "16.9.2",
     "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
