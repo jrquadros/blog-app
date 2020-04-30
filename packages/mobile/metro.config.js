@@ -10,9 +10,9 @@
 //   ...workspaces.filter((workspaceDir) => !(workspaceDir === appDir)),
 // ];
 
-const path = require('path');
+const path = require('path')
 
-const blacklist = require('metro-config/src/defaults/blacklist');
+const blacklist = require('metro-config/src/defaults/blacklist')
 
 module.exports = {
   resolver: {
@@ -20,9 +20,9 @@ module.exports = {
       {},
       {
         get: (target, name) => {
-          return path.join(__dirname, `node_modules/${name}`);
+          return path.join(__dirname, `node_modules/${name}`)
         },
-      },
+      }
     ),
   },
   watchFolders: [path.resolve(__dirname, '../')],
@@ -34,4 +34,4 @@ module.exports = {
       },
     }),
   },
-};
+}
