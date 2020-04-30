@@ -3,9 +3,11 @@ import React from 'react'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { SignIn } from './screens/SignIn'
+import { Register } from './screens/Register'
 
-type RootStackParamList = {
+export type RootStackParamList = {
   SignIn: undefined
+  Register: undefined
 }
 
 const RootStack = createStackNavigator<RootStackParamList>()
@@ -15,6 +17,11 @@ export const App = () => {
     <NavigationContainer>
       <RootStack.Navigator initialRouteName="SignIn">
         <RootStack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
+        <RootStack.Screen
+          name="Register"
+          component={Register}
+          options={{ headerShown: false }}
+        ></RootStack.Screen>
       </RootStack.Navigator>
     </NavigationContainer>
   )
