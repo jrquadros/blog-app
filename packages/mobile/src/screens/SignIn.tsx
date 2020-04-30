@@ -4,11 +4,9 @@ import { Input } from '../components/Input'
 import { Button } from '../components/Button'
 import { Image } from '../components/Image'
 import { TouchableText } from '../components/TouchableText'
-import { NativeSyntheticEvent } from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 import { Auth } from '../services/Auth'
-import { AsyncStorage } from 'react-native'
-import { Enviroment } from '../config/Enviroment'
 
 const womanImage = require('../assets/woman.png')
 
@@ -86,13 +84,13 @@ export const SignIn = () => {
         <Input
           placeholder={'Username'}
           value={username}
-          onChangeText={(value) => handleEmailChange(value)}
+          onChangeText={(value: string) => handleEmailChange(value)}
           autoCorrect={false}
         />
         <Input
           placeholder={'Password'}
           value={password}
-          onChangeText={(value) => handlePasswordChange(value)}
+          onChangeText={(value: string) => handlePasswordChange(value)}
           secureTextEntry={true}
           autoCorrect={false}
         />
