@@ -4,10 +4,12 @@ import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { SignIn } from './screens/SignIn'
 import { Register } from './screens/Register'
+import { Home } from './screens/Home'
 
 export type RootStackParamList = {
   SignIn: undefined
   Register: undefined
+  Home: { token: string }
 }
 
 const RootStack = createStackNavigator<RootStackParamList>()
@@ -22,6 +24,12 @@ export const App = () => {
           component={Register}
           options={{ headerShown: false }}
         ></RootStack.Screen>
+        <RootStack.Screen
+          name="Home"
+          component={Home}
+          options={{ headerShown: false }}
+          initialParams={{ token: '' }}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   )
