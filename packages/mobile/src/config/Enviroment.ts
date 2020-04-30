@@ -1,7 +1,5 @@
-import dotenv from 'dotenv'
-
-dotenv.config()
+import Config from 'react-native-config'
 
 export const Enviroment = {
-  authServerUrl: process.env.AUTH_SERVER_URL,
+  authServerUrl: 'http://192.168.0.104:8080',
 }
