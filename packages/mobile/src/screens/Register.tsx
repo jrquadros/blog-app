@@ -7,6 +7,7 @@ import { Button } from '../components/Button'
 import { Image } from '../components/Image'
 import { TouchableText } from '../components/TouchableText'
 import { Input } from '../components/Input'
+import { Api } from '../services/Api'
 
 const womanImage = require('../assets/woman.png')
 
@@ -43,8 +44,44 @@ const GoBackContainer = styled.View`
 `
 
 export const Register = ({ navigation, route }: Props) => {
-  const handleSendPress = () => {
-    //send
+  const [email, setEmail] = useState<string>('')
+  const [username, setUsername] = useState<string>('')
+  const [password, setPassword] = useState<string>('')
+  const [error, setError] = useState<string>('')
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value)
+  }
+
+  const handleUsernameChange = (value: string) => {
+    setUsername(value)
+  }
+
+  const handlePasswordChange = (value: string) => {
+    setPassword(value)
+  }
+
+  const handleErrorChange = () => {}
+
+  const handleSendPress = async () => {
+    try {
+      if (username.length === 0 || password.length === 0 || email.length === 0) {
+        setError('Required fields')
+      }
+
+      const result = await Api.post(
+        '/auth/register',
+        JSON.stringify({ username, password, email }, ['username', 'password', 'email']),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+
+      const user = result.data
+      // TODO confirm screen
+      navigation.navigate('SignIn')
+    } catch (error) {
+      setError(error.message)
+      console.log(error)
+    }
   }
 
   return (
@@ -53,9 +90,22 @@ export const Register = ({ navigation, route }: Props) => {
         <Image source={womanImage} style={{ aspectRatio: 0.5 }} resizeMode="contain" />
       </Center>
       <FormContainer>
-        <Input placeholder={'Email'} />
-        <Input placeholder={'Username'} />
-        <Input placeholder={'Password'} secureTextEntry={true} />
+        <Input
+          placeholder={'Email'}
+          value={email}
+          onChangeText={(value) => handleEmailChange(value)}
+        />
+        <Input
+          placeholder={'Username'}
+          value={username}
+          onChangeText={(value) => handleUsernameChange(value)}
+        />
+        <Input
+          placeholder={'Password'}
+          value={password}
+          onChangeText={(value) => handlePasswordChange(value)}
+          secureTextEntry={true}
+        />
         <Button text={'Cadastrar'} onPress={handleSendPress} />
       </FormContainer>
       <GoBackContainer>
