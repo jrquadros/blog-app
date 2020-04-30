@@ -14,11 +14,15 @@
     "@react-navigation/native": "^5.1.7",
     "@react-navigation/stack": "^5.2.14",
     "axios": "^0.19.2",
+    "dotenv": "^8.2.0",
     "react": "16.11.0",
     "react-native": "0.62.2",
+    "react-native-config": "^1.0.0",
     "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.8.0",
     "react-native-safe-area-context": "^0.7.3",
     "react-native-screens": "^2.7.0",
+    "react-navigation": "^4.3.8",
     "styled-components": "^5.1.0"
   },
   "devDependencies": {
@@ -28,6 +32,7 @@
     "@types/axios": "^0.14.0",
     "@types/jest": "^24.0.24",
     "@types/react-native": "^0.62.0",
+    "@types/react-navigation": "^3.4.0",
     "@types/react-test-renderer": "16.9.2",
     "@types/styled-components": "^5.1.0",
     "@typescript-eslint/eslint-plugin": "^2.27.0",
@@ -50,16 +55,6 @@
       "jsx",
       "json",
       "node"
-    ]
-  },
-  "workspaces": {
-    "nohoist": [
-      "@react-native-community/async-storage",
-      "react-native",
-      "react-native/**",
-      "react-native-dev-menu",
-      "react-native-svg",
-      "jetifier"
     ]
   }
 }
