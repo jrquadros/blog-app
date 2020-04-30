@@ -5,10 +5,23 @@ import { Button } from '../components/Button'
 import { Image } from '../components/Image'
 import { TouchableText } from '../components/TouchableText'
 import AsyncStorage from '@react-native-community/async-storage'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { RouteProp } from '@react-navigation/native'
 
 import { Auth } from '../services/Auth'
 
 const womanImage = require('../assets/woman.png')
+
+import { RootStackParamList } from '../App'
+
+type SignInScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
+
+type SignInScreenRouteProp = RouteProp<RootStackParamList, 'SignIn'>
+
+type Props = {
+  navigation: SignInScreenNavigationProp
+  route: SignInScreenRouteProp
+}
 
 const Wrapper = styled.SafeAreaView`
   display: flex;
@@ -38,14 +51,14 @@ const SignUpContainer = styled.View`
   align-items: center;
 `
 
-export const SignIn = () => {
+export const SignIn = ({ navigation, route }: Props) => {
   const [username, setUsername] = useState<string>('')
   const [password, setPassword] = useState<string>('')
-  const [error, setError] = useState<Error | null>(null)
+  const [error, setError] = useState<string>('')
 
   const handleSignInPress = async () => {
     if (username.length === 0 || password.length === 0) {
-      setError(Error('fill the required fields'))
+      setError('Required fields')
     }
 
     try {
@@ -65,7 +78,9 @@ export const SignIn = () => {
     } catch (error) {}
   }
 
-  const handleSignUpPres = () => {}
+  const handleSignUpPress = () => {
+    navigation.navigate('Register')
+  }
 
   const handleEmailChange = (value: string) => {
     setUsername(value)
@@ -97,7 +112,7 @@ export const SignIn = () => {
         <Button text={'LogIn'} onPress={handleSignInPress} />
       </FormContainer>
       <SignUpContainer>
-        <TouchableText text={'SignUp'} onPress={() => {}} />
+        <TouchableText text={'SignUp'} onPress={handleSignUpPress} />
       </SignUpContainer>
     </Wrapper>
   )
