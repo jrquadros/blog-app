@@ -4,11 +4,40 @@
   "workspaces": {
     "nohoist": [
       "**/react-native",
-      "**/react-native/**"
+      "**/react-native/**",
+      "**/styled-components/**",
+      "**/styled-components",
+      "**/styled-components/native",
+      "**/styled-components/native/**",
+      "**/@react-navigation",
+      "**/react-navigation",
+      "**/react-navigation/**",
+      "**/@react-navigation/**",
+      "**/babel-plugin-styled-components/**",
+      "**/axios",
+      "**/axios/**",
+      "**/react-native-config",
+      "**/react-native-config/**",
+      "**/react-native-gesture-handler",
+      "**/react-native-gesture-handler/**",
+      "**/react-native-reanimated ",
+      "**/react-native-reanimated/**",
+      "**/react-native-screens",
+      "**/react-native-screens/**",
+      "**/react-native-safe-area-context",
+      "**/react-native-safe-area-context/**",
+      "**/@react-native-community",
+      "**/@react-native-community/**",
+      "**/@react-native-community/masked-view",
+      "**/@react-native-community/masked-view/**",
+      "**/@react-native-community/async-storage",
+      "**/@react-native-community/async-storage/**"
     ],
     "packages": [
       "packages/*"
     ]
   },
-  "dependencies": {}
+  "devDependencies": {
+    "lerna": "^3.20.2"
+  }
 }
