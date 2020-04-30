@@ -9,10 +9,9 @@ import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
 
 import { Auth } from '../services/Auth'
+import { RootStackParamList } from '../App'
 
 const womanImage = require('../assets/woman.png')
-
-import { RootStackParamList } from '../App'
 
 type SignInScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
 
@@ -46,7 +45,7 @@ const Center = styled.View`
 `
 
 const SignUpContainer = styled.View`
-  flex: 0.5;
+  flex: 0.3;
   margin-top: 10px;
   align-items: center;
 `
@@ -93,7 +92,7 @@ export const SignIn = ({ navigation, route }: Props) => {
   return (
     <Wrapper>
       <Center>
-        <Image source={womanImage} style={{ aspectRatio: 0.5 }} />
+        <Image source={womanImage} style={{ aspectRatio: 0.5 }} resizeMode="contain" />
       </Center>
       <FormContainer>
         <Input
