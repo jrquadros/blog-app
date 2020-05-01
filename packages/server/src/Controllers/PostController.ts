@@ -3,10 +3,15 @@ import { User } from '../Schemas/User'
 import { Request, Response } from 'express'
 import { IUserRequest } from '../middlewares/ExtractJwt'
 
+interface IRequestQuery {
+  page: number
+}
+
 export const PostController = {
-  async index(req: Request, res: Response) {
+  async index(req: Request<{}, {}, {}, IRequestQuery>, res: Response) {
     try {
-      const posts = await Post.find().catch((error) => {
+      const page = req.query.page
+      const posts = await Post.paginate({}, { page: page || 1 }).catch((error) => {
         res.send(error)
       })
       return res.json(posts)
@@ -24,9 +29,11 @@ export const PostController = {
 
   async update(req: IUserRequest<IPostSchema>, res: Response) {
     try {
-      const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch((error) => {
-        res.send(error)
-      })
+      const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch(
+        (error) => {
+          res.send(error)
+        }
+      )
       return res.json(post)
     } catch (error) {
       res.status(400).send(error)
@@ -47,7 +54,7 @@ export const PostController = {
               posts: post.id,
             },
           },
-          { new: true },
+          { new: true }
         )
       })
       return res.send(post)

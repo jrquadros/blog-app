@@ -1,5 +1,13 @@
 import { Schema, Document, model } from 'mongoose'
+import * as mongoosePaginate from 'mongoose-paginate'
 import { IUserSchema } from './User'
+
+export interface IPostSchema extends Document {
+  title: string
+  description: string
+  isDone: boolean
+  author: IUserSchema
+}
 
 const PostSchema = new Schema({
   title: {
@@ -25,11 +33,6 @@ const PostSchema = new Schema({
   },
 })
 
-export interface IPostSchema extends Document {
-  title: string
-  description: string
-  isDone: boolean
-  author: IUserSchema
-}
+PostSchema.plugin(mongoosePaginate)
 
 export const Post = model<IPostSchema>('Post', PostSchema)

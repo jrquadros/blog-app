@@ -9,7 +9,11 @@ export interface IUserRequest<T> extends Request {
   body: T
 }
 
-export const ExtractJWT = async (req: IUserRequest<IUserSchema>, res: Response, next: NextFunction) => {
+export const ExtractJWT = async (
+  req: IUserRequest<IUserSchema>,
+  res: Response,
+  next: NextFunction
+) => {
   const authHeader = req.headers.authorization
   if (!authHeader) {
     return res.status(401).send({ error: 'No token provided' })

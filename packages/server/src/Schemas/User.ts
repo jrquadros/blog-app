@@ -1,4 +1,5 @@
 import { Schema, Document, model } from 'mongoose'
+import * as mongoosePaginate from 'mongoose-paginate'
 import * as bcrypt from 'bcrypt'
 import * as jwt from 'jsonwebtoken'
 import { Config } from '../config/Config'
@@ -42,6 +43,8 @@ const UserSchema = new Schema<IUserSchema>({
     default: Date.now,
   },
 })
+
+UserSchema.plugin(mongoosePaginate)
 
 UserSchema.methods.generateToken = function (id: string) {
   return jwt.sign({ id }, Config.jwt.secret || '', { expiresIn: '1 days' })
