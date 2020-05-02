@@ -6,9 +6,12 @@ import { IUserRequest } from '../middlewares/ExtractJwt'
 export const PostController = {
   async index(req: Request, res: Response) {
     try {
-      const posts = await Post.paginate().catch((error) => {
-        res.send(error)
-      })
+      const posts = await Post.find({})
+        .sort('-createdAt')
+        .catch((error) => {
+          res.send(error)
+          console.log(error)
+        })
       return res.json(posts)
     } catch (error) {
       res.status(400).send(error)
