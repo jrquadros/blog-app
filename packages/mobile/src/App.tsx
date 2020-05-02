@@ -19,7 +19,7 @@ export const App = () => {
   return (
     <NavigationContainer>
       <PaperProvider>
-        <RootStack.Navigator initialRouteName="Home">
+        <RootStack.Navigator initialRouteName="SignIn">
           <RootStack.Screen name="SignIn" component={SignIn} options={{ headerShown: false }} />
           <RootStack.Screen
             name="Register"
