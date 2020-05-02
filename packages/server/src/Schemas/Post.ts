@@ -1,5 +1,4 @@
 import { Schema, Document, model } from 'mongoose'
-import * as mongoosePaginate from 'mongoose-paginate'
 import { IUserSchema } from './User'
 
 export interface IPostSchema extends Document {
@@ -32,7 +31,5 @@ const PostSchema = new Schema({
     default: Date.now,
   },
 })
-
-PostSchema.plugin(mongoosePaginate)
 
 export const Post = model<IPostSchema>('Post', PostSchema)

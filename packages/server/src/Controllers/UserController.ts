@@ -2,15 +2,10 @@ import { User, IUserSchema } from '../Schemas/User'
 import { Request, Response } from 'express'
 import { IUserRequest } from '../middlewares/ExtractJwt'
 
-interface IRequestQuery {
-  page: number
-}
-
 export const UserController = {
-  async index(req: Request<{}, {}, {}, IRequestQuery>, res: Response) {
-    const page = req.query.page
+  async index(req: Request, res: Response) {
     try {
-      const users = await User.paginate({}, { page: page || 1, limit: 20 }).catch((error) => {
+      const users = await User.find().catch((error) => {
         res.send(error)
       })
       return res.json(users)

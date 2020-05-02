@@ -37,7 +37,7 @@ export const AuthController = {
 
   async currentUser(req: IUserRequest<IUserSchema>, res: Response) {
     try {
-      const { userId } = req.cookies
+      const userId = req.cookies.authUser
 
       const user = await User.findById(userId)
 

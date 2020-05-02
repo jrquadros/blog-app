@@ -3,15 +3,10 @@ import { User } from '../Schemas/User'
 import { Request, Response } from 'express'
 import { IUserRequest } from '../middlewares/ExtractJwt'
 
-interface IRequestQuery {
-  page: number
-}
-
 export const PostController = {
-  async index(req: Request<{}, {}, {}, IRequestQuery>, res: Response) {
+  async index(req: Request, res: Response) {
     try {
-      const page = req.query.page
-      const posts = await Post.paginate({}, { page: page || 1 }).catch((error) => {
+      const posts = await Post.paginate().catch((error) => {
         res.send(error)
       })
       return res.json(posts)
@@ -43,7 +38,7 @@ export const PostController = {
   //TODO get user id from
   async store(req: IUserRequest<IPostSchema>, res: Response) {
     try {
-      const { userId } = req.cookies
+      const userId = req.cookies.authUser
 
       req.body.author = userId
       const post = await Post.create(req.body).then((post) => {
