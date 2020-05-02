@@ -108,6 +108,7 @@ export const SignIn = ({ navigation, route }: Props) => {
           value={username}
           onChangeText={(value: string) => handleEmailChange(value)}
           autoCorrect={false}
+          errorMessage={error}
         />
         <Input
           placeholder={'Password'}

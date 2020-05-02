@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components/native'
+import AsyncStorage from '@react-native-community/async-storage'
+
 import { StackNavigationProp } from '@react-navigation/stack'
 import { RouteProp } from '@react-navigation/native'
+import { PostCard } from '../components/PostCard'
+import { Header } from '../components/Header'
 import { RootStackParamList } from '../App'
+import { Api } from '../services/Api'
+import { AxiosResponse } from 'axios'
 
 type HomeScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Home'>
 
@@ -14,24 +20,58 @@ type Props = {
   token?: string
 }
 
-const Wrapper = styled.ScrollView`
+interface Ipost {
+  _id: string
+  title: string
+  author: string
+  createdAt: string
+  description: string
+}
+
+const Wrapper = styled.SafeAreaView`
+  flex: 1;
+`
+
+const ContentContainer = styled.ScrollView`
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: #f5f5f5;
   padding: 20px;
-  padding-top: 40px;
 `
 
-const Text = styled.Text``
-
 export const Home = ({ navigation, route }: Props) => {
-  const token = route.params.token
+  const [posts, setPosts] = useState<Array<Ipost>>()
+
+  useEffect(() => {
+    getPosts()
+  }, [])
+
+  const getPosts = async () => {
+    try {
+      const token = await AsyncStorage.getItem('@BlogApp:token', (err, result) => {})
+      const response: AxiosResponse<Array<Ipost>> = await Api.get('/posts', {
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      })
+      const posts = response.data
+
+      setPosts(posts)
+    } catch (error) {}
+  }
 
   return (
     <Wrapper>
-      <Text>HOME SCREEN</Text>
-      <Text>TOKEN: {token}</Text>
+      <Header title={'Posts'} />
+      <ContentContainer>
+        {posts?.map((post) => (
+          <PostCard
+            key={post._id}
+            createdAt={post.createdAt}
+            title={post.title}
+            subtitle={post.description}
+          />
+        ))}
+      </ContentContainer>
     </Wrapper>
   )
 }

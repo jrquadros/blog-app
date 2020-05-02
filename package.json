@@ -31,7 +31,11 @@
       "**/@react-native-community/masked-view",
       "**/@react-native-community/masked-view/**",
       "**/@react-native-community/async-storage",
-      "**/@react-native-community/async-storage/**"
+      "**/@react-native-community/async-storage/**",
+      "**/react-native-paper",
+      "**/react-native-paper/**",
+      "**/react-native-vector-icons",
+      "**/react-native-vector-icons/**"
     ],
     "packages": [
       "packages/*"
