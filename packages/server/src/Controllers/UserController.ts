@@ -27,9 +27,11 @@ export const UserController = {
 
   async update(req: IUserRequest<IUserSchema>, res: Response) {
     try {
-      const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch((error) => {
-        res.send(error)
-      })
+      const user = await User.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch(
+        (error) => {
+          res.send(error)
+        }
+      )
       return res.json(user)
     } catch (error) {
       res.status(400).send(error)

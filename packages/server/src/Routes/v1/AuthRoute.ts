@@ -7,6 +7,6 @@ const router = express.Router()
 router.route('/login').post(AuthController.authenticate)
 router.route('/register').post(AuthController.store)
 
-router.get('/me', AuthController.currentUser).use(ExtractJWT)
+router.use(ExtractJWT).get('/me', AuthController.currentUser)
 
 export const AuthRoute = router

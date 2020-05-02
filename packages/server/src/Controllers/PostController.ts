@@ -6,9 +6,12 @@ import { IUserRequest } from '../middlewares/ExtractJwt'
 export const PostController = {
   async index(req: Request, res: Response) {
     try {
-      const posts = await Post.find().catch((error) => {
-        res.send(error)
-      })
+      const posts = await Post.find({})
+        .sort('-createdAt')
+        .catch((error) => {
+          res.send(error)
+          console.log(error)
+        })
       return res.json(posts)
     } catch (error) {
       res.status(400).send(error)
@@ -24,9 +27,11 @@ export const PostController = {
 
   async update(req: IUserRequest<IPostSchema>, res: Response) {
     try {
-      const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch((error) => {
-        res.send(error)
-      })
+      const post = await Post.findByIdAndUpdate(req.params.id, req.body, { new: true }).catch(
+        (error) => {
+          res.send(error)
+        }
+      )
       return res.json(post)
     } catch (error) {
       res.status(400).send(error)
@@ -36,7 +41,7 @@ export const PostController = {
   //TODO get user id from
   async store(req: IUserRequest<IPostSchema>, res: Response) {
     try {
-      const { userId } = req.cookies
+      const userId = req.cookies.authUser
 
       req.body.author = userId
       const post = await Post.create(req.body).then((post) => {
@@ -47,7 +52,7 @@ export const PostController = {
               posts: post.id,
             },
           },
-          { new: true },
+          { new: true }
         )
       })
       return res.send(post)

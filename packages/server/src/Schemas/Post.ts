@@ -1,6 +1,13 @@
 import { Schema, Document, model } from 'mongoose'
 import { IUserSchema } from './User'
 
+export interface IPostSchema extends Document {
+  title: string
+  description: string
+  isDone: boolean
+  author: IUserSchema
+}
+
 const PostSchema = new Schema({
   title: {
     type: String,
@@ -24,12 +31,5 @@ const PostSchema = new Schema({
     default: Date.now,
   },
 })
-
-export interface IPostSchema extends Document {
-  title: string
-  description: string
-  isDone: boolean
-  author: IUserSchema
-}
 
 export const Post = model<IPostSchema>('Post', PostSchema)

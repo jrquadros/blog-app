@@ -11,6 +11,8 @@ import { RouteProp } from '@react-navigation/native'
 import { Auth } from '../services/Auth'
 import { RootStackParamList } from '../App'
 
+import { AxiosResponse } from 'axios'
+
 const womanImage = require('../assets/woman.png')
 
 type SignInScreenNavigationProp = StackNavigationProp<RootStackParamList, 'SignIn'>
@@ -20,6 +22,10 @@ type SignInScreenRouteProp = RouteProp<RootStackParamList, 'SignIn'>
 type Props = {
   navigation: SignInScreenNavigationProp
   route: SignInScreenRouteProp
+}
+
+interface IResponse {
+  token: string
 }
 
 const Wrapper = styled.SafeAreaView`
@@ -61,7 +67,7 @@ export const SignIn = ({ navigation, route }: Props) => {
     }
 
     try {
-      const result = await Auth.post(
+      const result: AxiosResponse<IResponse> = await Auth.post(
         '/login',
         JSON.stringify({ username: username, password: password }, ['username', 'password']),
         {
@@ -71,9 +77,11 @@ export const SignIn = ({ navigation, route }: Props) => {
         }
       )
 
-      const { token } = result.data
+      const token = result.data.token
 
       await AsyncStorage.setItem('@BlogApp:token', token)
+
+      navigation.navigate('Home', { token })
     } catch (error) {}
   }
 
@@ -100,6 +108,7 @@ export const SignIn = ({ navigation, route }: Props) => {
           value={username}
           onChangeText={(value: string) => handleEmailChange(value)}
           autoCorrect={false}
+          errorMessage={error}
         />
         <Input
           placeholder={'Password'}
