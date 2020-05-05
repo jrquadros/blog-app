@@ -3,6 +3,8 @@ import styled from 'styled-components'
 import { Header } from '../components/Header'
 import { PostCard } from '../components/PostCard'
 import { Ipost, Api } from '../services/Api'
+import { Logout } from '../services/Auth'
+import { useHistory } from 'react-router-dom'
 
 const Wrapper = styled.div``
 
@@ -31,9 +33,16 @@ export const Home = () => {
     setPosts(posts)
   }
 
+  const history = useHistory()
+
+  const handleLogoutClick = () => {
+    Logout()
+    history.replace('/login')
+  }
+
   return (
     <Wrapper>
-      <Header title={'Home'} />
+      <Header title={'Home'} items={[{ label: 'Logout', onClick: handleLogoutClick }]} />
       <Container>
         {posts?.map((post) => (
           <PostCard

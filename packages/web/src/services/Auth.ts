@@ -22,3 +22,7 @@ export const Login = async (username: string, password: string) => {
   const token = result.data.token
   return token
 }
+
+export const Logout = () => {
+  localStorage.removeItem('token')
+}
