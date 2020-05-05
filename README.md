@@ -26,13 +26,13 @@ cd packages/server && docker-compose up -d
 In the root folder:
 
 ```sh
-yarn worksapce server ts:watch
+yarn workspace server ts:watch
 ```
 
 In another tab:
 
 ```sh
-yarn worksapce server dev
+yarn workspace server dev
 ```
 
 ## Auth Server
