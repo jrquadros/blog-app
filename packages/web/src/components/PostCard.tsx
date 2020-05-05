@@ -70,7 +70,7 @@ export const PostCard = ({ title, subtitle, createdAt }: IPostCardProps) => {
           <Separator size={15} />
           <Subtitle>{subtitle}</Subtitle>
         </Container>
-        <CreatedAt>{createdAt}</CreatedAt>
+        <CreatedAt>{new Date(createdAt).toLocaleDateString()}</CreatedAt>
       </Container>
       <Cover src={`https://picsum.photos/400/300?blur?random=${Math.random()}`} />
     </Wrapper>
