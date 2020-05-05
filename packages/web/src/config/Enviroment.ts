@@ -1,4 +1,8 @@
+import * as dotenv from 'dotenv'
+
+dotenv.config()
+
 export const Enviroment = {
-  authServerUri: 'http://192.168.0.104:8080',
-  apiServerUri: 'http://192.168.0.104:9091',
+  authServerUri: process.env.REACT_APP_AUTH_SERVER_URI,
+  apiServerUri: process.env.REACT_APP_API_URI,
 }
