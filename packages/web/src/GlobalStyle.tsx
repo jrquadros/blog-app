@@ -13,5 +13,6 @@ export const GlobalStyle = createGlobalStyle`
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     font-family: 'Roboto Condensed', sans-serif;
+    color: #555;
   }
 `

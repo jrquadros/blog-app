@@ -6,6 +6,8 @@ interface IHeaderProps {
 }
 
 const Wrapper = styled.header`
+  position: fixed;
+  width: 100%;
   background-color: #fff;
   display: flex;
   padding: 1rem;

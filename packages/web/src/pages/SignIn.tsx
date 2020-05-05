@@ -50,7 +50,7 @@ export const SignIn = () => {
       await localStorage.setItem('token', token)
       history.push('/home')
     } catch (error) {
-      console.log(error)
+      setError(error.message)
     }
   }
 
