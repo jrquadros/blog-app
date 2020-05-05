@@ -14,15 +14,18 @@ interface IInputProps {
 
 const Container = styled.View``
 
-const StyledInput = styled(TextInput)`
+const StyledInput = styled.TextInput`
   margin-bottom: 8px;
+  background-color: #fff;
+  border-radius: 5px;
+  padding: 15px;
 `
 
 export const Input = ({ placeholder, secureTextEntry, value, onChangeText }: IInputProps) => {
   return (
     <Container>
       <StyledInput
-        label={placeholder}
+        placeholder={placeholder}
         value={value}
         onChangeText={onChangeText}
         mode={'flat'}
