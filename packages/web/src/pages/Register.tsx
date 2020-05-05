@@ -5,9 +5,9 @@ import { Button } from '../components/Button'
 import { Input } from '../components/Input'
 import { Separator } from '../components/Separator'
 import { Center } from '../components/Center'
-import { Link } from '../components/Link'
-import { Login } from '../services/Auth'
+import { Api } from '../services/Api'
 import { useHistory } from 'react-router-dom'
+import { Link } from '../components/Link'
 
 const Wrapper = styled.div`
   display: flex;
@@ -22,12 +22,17 @@ const LoginFormContainer = styled.div`
   width: 30rem;
 `
 
-export const SignIn = () => {
+export const Register = () => {
   const [username, setUsername] = useState<string>('')
+  const [email, setEmail] = useState<string>('')
   const [password, setPassword] = useState<string>('')
   const [error, setError] = useState<string>('')
 
   const history = useHistory()
+
+  const handleEmailChange = (value: string) => {
+    setEmail(value)
+  }
 
   const handleUsernameChange = (value: string) => {
     setUsername(value)
@@ -39,26 +44,37 @@ export const SignIn = () => {
 
   const handleLoginClick = async () => {
     try {
-      const token = await Login(username, password)
-
-      if (!token) {
-        setError('invalid login')
-        return
+      if (username.length === 0 || password.length === 0 || email.length === 0) {
+        setError('Required fields')
       }
-      console.log(token)
 
-      await localStorage.setItem('token', token)
-      history.push('/')
-    } catch (error) {
-      setError(error.message)
+      const result = await Api.post(
+        '/auth/register',
+        JSON.stringify({ username, password, email }, ['username', 'password', 'email']),
+        { headers: { 'Content-Type': 'application/json' } }
+      )
+
+      const user = result.data
+      if (user) {
+        history.replace('/login')
+      }
+    } catch (err) {
+      setError(err.message)
+      console.log(err)
     }
   }
 
   return (
     <Wrapper>
-      <Header title={'SignIn'} />
+      <Header title={'Register'} />
       <Center>
         <LoginFormContainer>
+          <Input
+            type={'email'}
+            placeholder={'Email'}
+            onChange={(e) => handleEmailChange(e.target.value)}
+          />
+          <Separator size={5} />
           <Input
             type={'text'}
             placeholder={'Username'}
@@ -71,9 +87,9 @@ export const SignIn = () => {
             onChange={(e) => handlePasswordChange(e.target.value)}
           />
           <Separator size={10} />
-          <Button onClick={handleLoginClick}>Login</Button>
+          <Button onClick={handleLoginClick}>Submit</Button>
           <Separator size={18} />
-          <Link to={'register'}>Register</Link>
+          <Link to={'/login'}>Go back</Link>
         </LoginFormContainer>
       </Center>
     </Wrapper>
