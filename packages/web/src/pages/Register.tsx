@@ -15,7 +15,7 @@ const Wrapper = styled.div`
   height: 100vh;
 `
 
-const LoginFormContainer = styled.div`
+const RegisterFormContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -42,7 +42,7 @@ export const Register = () => {
     setPassword(value)
   }
 
-  const handleLoginClick = async () => {
+  const handleSubmitClick = async () => {
     try {
       if (username.length === 0 || password.length === 0 || email.length === 0) {
         setError('Required fields')
@@ -68,7 +68,7 @@ export const Register = () => {
     <Wrapper>
       <Header title={'Register'} />
       <Center>
-        <LoginFormContainer>
+        <RegisterFormContainer>
           <Input
             type={'email'}
             placeholder={'Email'}
@@ -87,10 +87,10 @@ export const Register = () => {
             onChange={(e) => handlePasswordChange(e.target.value)}
           />
           <Separator size={10} />
-          <Button onClick={handleLoginClick}>Submit</Button>
+          <Button onClick={handleSubmitClick}>Submit</Button>
           <Separator size={18} />
           <Link to={'/login'}>Go back</Link>
-        </LoginFormContainer>
+        </RegisterFormContainer>
       </Center>
     </Wrapper>
   )
