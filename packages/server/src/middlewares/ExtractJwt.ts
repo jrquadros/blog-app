@@ -30,7 +30,7 @@ export const ExtractJWT = async (
     if (err) return res.status(401).send({ error: 'invalid token' })
 
     User.findOne({ email: get(decoded, 'email') })
-      .then((result) => res.status(200).cookie('authUser', result?.id))
+      .then((result) => res.cookie('authUser', result?.id))
       .catch((error) => {
         console.log(error)
       })
