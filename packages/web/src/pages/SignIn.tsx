@@ -45,7 +45,6 @@ export const SignIn = () => {
         setError('invalid login')
         return
       }
-      console.log(token)
 
       await localStorage.setItem('token', token)
       history.push('/')

@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from 'axios'
+import axios from 'axios'
 import { Enviroment } from '../config/Enviroment'
 
 export interface Ipost {

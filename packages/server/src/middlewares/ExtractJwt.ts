@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
 import { Config } from '../config/Config'
-import { IUserSchema } from '../Schemas/User'
+import { IUserSchema, User } from '../Schemas/User'
 import { get } from 'lodash'
 
 export interface IUserRequest<T> extends Request {
@@ -29,7 +29,13 @@ export const ExtractJWT = async (
   jwt.verify(token, Config.jwt.secret || '', (err, decoded) => {
     if (err) return res.status(401).send({ error: 'invalid token' })
 
-    res.status(200).cookie('authUser', get(decoded, 'id'))
+    User.findOne({ email: get(decoded, 'email') })
+      .then((result) => res.cookie('authUser', result?.id))
+      .catch((error) => {
+        console.log(error)
+      })
+
+    //res.status(200).cookie('authUser', user)
 
     return next()
   })
