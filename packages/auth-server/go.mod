@@ -8,5 +8,5 @@ require (
 	github.com/rs/cors v1.7.0
 	github.com/spf13/viper v1.6.3
 	go.mongodb.org/mongo-driver v1.5.1
-	golang.org/x/crypto v0.0.0-20200427165652-729f1e841bcc
+	golang.org/x/crypto v0.1.0
 )
